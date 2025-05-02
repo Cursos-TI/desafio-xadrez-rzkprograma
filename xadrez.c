@@ -1,63 +1,84 @@
 #include <stdio.h>
 
+// Função recursiva para mover a Torre
+void moverTorre(int casas) {
+    if (casas == 0) return;
+    printf("Direita\n");
+    moverTorre(casas - 1);
+}
+
+// Função para mover o Bispo uma vez (diagonal cima-direita)
+void moverBispoUnico(int casas) {
+    for (int i = 0; i < casas; i++) {
+        printf("Cima Direita\n");
+    }
+}
+
+// Função recursiva para mover a Rainha
+void moverRainha(int casas) {
+    if (casas == 0) return;
+    printf("Esquerda\n");
+    moverRainha(casas - 1);
+}
+
+void moverCavalo() {
+    for (int i = 0; i < 2; i++) { // duas casas para cima
+        printf("Cima\n");
+        if (i == 1) {
+            for (int j = 0; j < 1; j++) {
+                if (j == 0) {
+                    printf("Direita\n");
+                    break;
+                }
+            }
+        }
+    }
+}
+
+void exibirMenu() {
+    printf("\nEscolha uma peça para mover:\n");
+    printf("1 - Torre\n");
+    printf("2 - Bispo\n");
+    printf("3 - Rainha\n");
+    printf("4 - Cavalo\n");
+    printf("5 - Sair\n");
+    printf("Digite o número da sua escolha: ");
+}
+
 int main() {
     int escolha;
     int movimentoTorre = 5;
     int movimentoBispo = 5;
     int movimentoRainha = 8;
 
-    // Movimento do Cavalo: 2 para baixo e 1 para a esquerda
-    int casascima = 2;
-    int casasdireita = 1;
+    do {
+        exibirMenu();
+        scanf("%d", &escolha);
 
-    printf("Escolha uma peça para mover:\n");
-    printf("1 - Torre\n");
-    printf("2 - Bispo\n");
-    printf("3 - Rainha\n");
-    printf("4 - Cavalo\n"); // Nova opção para o Cavalo
-    printf("Digite o número da sua escolha: ");
-    scanf("%d", &escolha);
-
-    if (escolha == 1) {
-        // Torre: mover 5 casas para a direita (for)
-        printf("\nMovimento da Torre:\n");
-        for (int i = 0; i < movimentoTorre; i++) {
-            printf("Direita\n");
+        switch (escolha) {
+            case 1:
+                printf("\nMovimento da Torre:\n");
+                moverTorre(movimentoTorre);
+                break;
+            case 2:
+                printf("\nMovimento do Bispo:\n");
+                moverBispoUnico(movimentoBispo);
+                break;
+            case 3:
+                printf("\nMovimento da Rainha:\n");
+                moverRainha(movimentoRainha);
+                break;
+            case 4:
+                printf("\nMovimento do Cavalo:\n");
+                moverCavalo();
+                break;
+            case 5:
+                printf("Saindo do jogo. Até mais!\n");
+                break;
+            default:
+                printf("Opção inválida. Tente novamente com 1, 2, 3, 4 ou 5.\n");
         }
-    } else if (escolha == 2) {
-        // Bispo: mover 5 casas para cima e à direita (while)
-        printf("\nMovimento do Bispo:\n");
-        int i = 0;
-        while (i < movimentoBispo) {
-            printf("Cima Direita\n");
-            i++;
-        }
-    } else if (escolha == 3) {
-        // Rainha: mover 8 casas para a esquerda (do-while)
-        printf("\nMovimento da Rainha:\n");
-        int i = 0;
-        do {
-            printf("Esquerda\n");
-            i++;
-        } while (i < movimentoRainha);
-    } else if (escolha == 4) {
-        // Cavalo: movimento em "L"
-        printf("\nMovimento do Cavalo:\n");
+    } while (escolha != 5);
 
-        // Primeiro movimento: duas casas para cima (usando for)
-        for (int i = 0; i < casascima; i++) {
-            printf("cima\n");
-        }
-
-        // Segundo movimento: uma casa para a direita (usando while)
-        int j = 0;
-        while (j < casascima) {
-            printf("direita\n");
-            j++;
-        }
-
-    } else {
-        printf("Opção inválida. Tente novamente com 1, 2, 3 ou 4.\n");
-    }
-
+    return 0;
 }
